@@ -1,8 +1,9 @@
 ---
 
 - name: Deploy Prometheus, Node Exporter
-  hosts: prometheus,node_exporter
+  hosts: prometheus,node_exporter,grafana
   become: yes
   roles:
     - prometheus
     - node_exporter
+    - grafana
