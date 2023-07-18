@@ -1,0 +1,27 @@
+---
+
+- name: Install gpg
+  apt:
+    name: gnupg, software-properties-common
+    state: present
+
+- name: Add GPG Key
+  apt_key:
+    url: "https://apt.grafana.com/gpg.key"
+    state: present
+
+- name: Add Grafana Repo
+  apt_repository:
+    repo: "deb https://apt.grafana.com stable main"
+    state: present
+
+- name: Install Grafana
+  apt:
+    name: grafana
+    state: present
+
+- name: Start Service Grafana-Server
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes
