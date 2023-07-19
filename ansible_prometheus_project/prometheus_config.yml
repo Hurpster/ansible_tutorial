@@ -1,0 +1,20 @@
+---
+
+- name: Generate and push Prometheus configs
+  hosts: prometheus,node_exporter
+  become: true
+
+
+  tasks:
+    - name: Copy prometheus config template
+      template:
+        src: /home/master/ansible_tutorial/ansible_prometheus_project/roles/prometheus/templates/prometheus.yml.j2
+        dest: /etc/prometheus/prometheus.yml
+        owner: prometheus
+        group: prometheus
+        mode: '0644'
+
+    - name: Restart Prometheus service
+      systemd:
+        name: prometheus
+        state: restarted
